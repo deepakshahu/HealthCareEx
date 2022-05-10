@@ -42,7 +42,7 @@ public class SpecializationController {
 	}
 
 	/*
-	 * 3. display all Specializations
+	 * 3. Display all Specializations
 	 */
 	@GetMapping("/all")
 	public String viewAll(Model model, @RequestParam(value="message", required = false) String message) {
@@ -60,5 +60,15 @@ public class SpecializationController {
 		service.removeSpecialization(id);
 		attributes.addAttribute("message", "Record ("+id+") is removed");
 		return "redirect:all";
+	}
+	
+	/**
+	 * 5. Fetch Data into Edit page
+	 */
+	@GetMapping("/edit")
+	public String showEditPage(@RequestParam Long id, Model model) {
+		Specialization spec = service.getOneSpecialization(id);
+		model.addAttribute("specialization",spec);
+		return "SpecializationEdit";
 	}
 }
